@@ -1,0 +1,17 @@
+# Dependency directories
+node_modules/
+
+# Production/build artifacts
+dist
+build
+
+# Logs
+logs
+*.log
+
+# Environment variables
+.env*
+
+# Coverage directory
+coverage/
+
