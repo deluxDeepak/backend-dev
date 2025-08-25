@@ -1,7 +1,7 @@
 // Yehan hum claudinary related kam kar lenge 
 
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+import fs, { unlink, unlinkSync } from "fs";
 
 // Configuration
 cloudinary.config({
@@ -31,10 +31,36 @@ const uploadOnCloudinary = async (localFilePath) => {
         //File uploaded Successfully 
         // ->Pura response bhej rhe hai jo chiye hoga wo nikal lega URL 
         console.log("✅ File uploaded Successfully !", response.url);
+
+        // -->Upload hone ke baad file remove kar do file ko 
+        fs.unlinkSync(localFilePath)
         return response;
 
     } catch (error) {
-        fs.unlink(localFilePath);
+
+        fs.unlinkSync(localFilePath);
+
+
+
+
+
+
+
+
+
+
+
+
+        // unlink do argument leta hai ek path second callback nahi to error dega
+        // unlinkSync ek hi argument leta hai 
+
+        // fs.unlink(localFilePath,(error)=>{
+        //     console.log("❌ Error in removing File ",error.message)
+        // });
+
+
+
+
         //rmeove the locally saved temporary file as the upload operation gto failed 
         // ->Agr nahi karenge to ye file beker me para rehega (delete ko unlink karna bolte hai )
 
@@ -42,3 +68,5 @@ const uploadOnCloudinary = async (localFilePath) => {
 
     }
 }
+
+export {uploadOnCloudinary}
